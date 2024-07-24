@@ -5,13 +5,15 @@
 
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
-<form class="form form-edit-account"
+<form class="form-address-edit"
       action="<?= $escaper->escapeUrl($block->getUrl('car/edit/editPost')) ?>"
       method="post" id="form-validate"
       enctype="multipart/form-data"
       data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
       autocomplete="off">
-    <fieldset class="fieldset required">
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Car Profile')) ?></span></legend><br>
+        <?= $block->getBlockHtml('formkey') ?>
         <div class="field car required">
             <label class="label" for="car"><span><?= $block->escapeHtml(__('Select Make')) ?></span></label>
             <div class="control">
@@ -20,7 +22,7 @@
                 </select>
             </div>
         </div>
-        <div class="field car required">
+        <div class="field car-field required" style="display: none;">
             <label class="label" for="car"><span><?= $block->escapeHtml(__('Select Car')) ?></span></label>
             <div class="control">
                 <div data-bind="scope: 'carprofile'">
@@ -29,10 +31,16 @@
             </div>
         </div>
     </fieldset>
+    <fieldset class="fieldset">
+        <div data-bind="scope: 'previewCar'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+    </fieldset>
 
     <div class="actions-toolbar">
         <div class="primary">
-            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>"
+                disabled="disabled">
                 <span><?= $block->escapeHtml(__('Save')) ?></span>
             </button>
         </div>
@@ -51,7 +59,7 @@ $scriptString = <<<script
     ], function($){
         var dataForm = $('#form-validate');
 
-        dataForm.mage('validation', {});
+
     });
 script;
 ?>
@@ -93,8 +101,14 @@ script;
 
                 $("#makes").on("change", function (e) {
                     e.preventDefault();
-                    if (!_.empty(this.value.trim())) {
+
+                    if (this.value.trim() !== '') {
                         makeSelectedValue(this.value);
+                        $('.car-field').show();
+                    } else {
+                        $('.car-field').hide();
+                        makeSelectedValue('');
+                        $('[type="submit"]').attr('disabled', 'disabled');
                     }
                 });
             });

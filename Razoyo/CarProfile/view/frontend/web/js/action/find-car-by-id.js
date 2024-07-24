@@ -8,15 +8,15 @@ define(
     ], function (urlManager, $) {
         'use strict';
 
-        return function (carMake, headers = {}) {
+        return function (id, yourToken) {
             let request = {
-                url: urlManager.getCarList(carMake),
+                url: urlManager.getCarById(id),
                 type: 'GET',
                 dataType: 'json',
+                headers: {
+                    'Authorization': `Bearer ${yourToken}`
+                },
             };
-            if (headers.length) {
-                request.headers = headers;
-            }
 
             return $.ajax(request);
         }

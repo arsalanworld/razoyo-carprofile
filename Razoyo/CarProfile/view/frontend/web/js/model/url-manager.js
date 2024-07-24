@@ -6,6 +6,10 @@ define([], function() {
 
         getCarList: function (carMake) {
             return this.serviceUrl + '/cars?make=' + carMake;
+        },
+
+        getCarById: function (id) {
+            return this.serviceUrl + '/cars/' + id;
         }
     }
 });
