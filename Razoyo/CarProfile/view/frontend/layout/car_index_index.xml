@@ -14,7 +14,7 @@
         </referenceBlock>
         <referenceContainer name="content">
             <block class="Magento\Framework\View\Element\Template" name="tab.car_profile" as="tab_car_profile"
-                   template="Razoyo_CarProfile::my-car-profile.phtml">
+                   template="Razoyo_CarProfile::my-car-profile.phtml" cacheable="false">
                 <arguments>
                     <argument name="view_model" xsi:type="object">Razoyo\CarProfile\ViewModel\CarProfile</argument>
                 </arguments>

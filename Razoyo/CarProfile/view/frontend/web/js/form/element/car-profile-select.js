@@ -27,8 +27,7 @@ define([
             elementTmpl: 'Magento_Ui/form/element/select',
             caption: 'Select Your Car',
             options: [],
-            yourToken: '',
-            selectedId: ''
+            yourToken: ''
         },
 
         initialize: function() {
@@ -72,13 +71,6 @@ define([
                         'label': car.make + ' ' + car.model + ' ' + car.year
                     });
                 });
-
-                if (componentSelf.selectedId) {
-                    setTimeout(function () {
-                        componentSelf.onUpdate(componentSelf.selectedId);
-                        componentSelf.selectedId = '';
-                    }, 300);
-                }
             }
         }
     });
