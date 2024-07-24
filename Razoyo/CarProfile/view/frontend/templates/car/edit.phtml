@@ -1,0 +1,102 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<form class="form form-edit-account"
+      action="<?= $escaper->escapeUrl($block->getUrl('car/edit/editPost')) ?>"
+      method="post" id="form-validate"
+      enctype="multipart/form-data"
+      data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
+      autocomplete="off">
+    <fieldset class="fieldset required">
+        <div class="field car required">
+            <label class="label" for="car"><span><?= $block->escapeHtml(__('Select Make')) ?></span></label>
+            <div class="control">
+                <select id="makes">
+                    <option value=""><?= __('Select Make...') ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="field car required">
+            <label class="label" for="car"><span><?= $block->escapeHtml(__('Select Car')) ?></span></label>
+            <div class="control">
+                <div data-bind="scope: 'carprofile'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>">
+                <span><?= $block->escapeHtml(__('Save')) ?></span>
+            </button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml(__('Go back')) ?></span>
+            </a>
+        </div>
+    </div>
+</form>
+<?php
+$scriptString = <<<script
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+        var dataForm = $('#form-validate');
+
+        dataForm.mage('validation', {});
+    });
+script;
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "carprofile": {
+                        "component": "Razoyo_CarProfile/js/form/element/car-profile-select",
+                        "template" : "Razoyo_CarProfile/ui/form/element/car-select"
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script>
+    requirejs(
+        [
+            'Razoyo_CarProfile/js/action/get-car-list',
+            'Razoyo_CarProfile/js/model/makes',
+            'Razoyo_CarProfile/js/model/make-selected-value',
+            'underscore',
+            'jquery',
+            'domReady!'
+        ], function (GetCarListAction, makes, makeSelectedValue, _, $) {
+
+            $(document).ready(function () {
+                GetCarListAction('').then(function (response, textStatus, xhr) {
+                    if (response.makes !== undefined && response.makes.length) {
+                        _.each(response.makes, function (make) {
+                            $('#makes').append('<option value="' + make + '">' + make + '</option>');
+                        });
+                        let yourToken = xhr.getResponseHeader('your-token');
+                        console.log('response header:', yourToken);
+                    }
+                });
+
+                $("#makes").on("change", function (e) {
+                    e.preventDefault();
+                    if (!_.empty(this.value.trim())) {
+                        makeSelectedValue(this.value);
+                    }
+                });
+            });
+        });
+</script>

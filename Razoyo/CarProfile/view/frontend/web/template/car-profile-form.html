@@ -1,0 +1,16 @@
+<fieldset class="fieldset select-make required">
+    <div class="field make required">
+        <label class="label"><span data-bind="i18n: 'Select Make'"></span></label>
+        <div class="control">
+            <each args="getRegion('selectMake')" render=""></each>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="fieldset car required">
+    <div class="field car required">
+        <label class="label"><span data-bind="i18n: 'Select Car'"></span></label>
+        <div class="control">
+            <each args="getRegion('carList')" render=""></each>
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,94 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<form class="form form-edit-account"
+      action="<?= $escaper->escapeUrl($block->getUrl('car/edit/editPost')) ?>"
+      method="post"
+      id="form-validate"
+      enctype="multipart/form-data"
+      data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
+      autocomplete="off">
+
+    <div data-bind="scope: 'carprofile'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>">
+                <span><?= $block->escapeHtml(__('Save')) ?></span>
+            </button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml(__('Go back')) ?></span>
+            </a>
+        </div>
+    </div>
+</form>
+<?php
+$scriptString = <<<script
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+        var dataForm = $('#form-validate');
+    });
+script;
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "carprofile": {
+                        "component": "uiComponent",
+                        "config": {
+                            "template": "Razoyo_CarProfile/car-profile-form"
+                        },
+                        "children": {
+                            "selectMake": {
+                                "component": "Razoyo_CarProfile/js/view/mycarlist",
+                                "displayArea": "selectMake"
+                            },
+                            "carList": {
+                                "component": "Razoyo_CarProfile/js/form/element/car-profile-select",
+                                "template" : "Razoyo_CarProfile/ui/form/element/car-select",
+                                "displayArea": "carList"
+                            }
+                        }
+                    },
+                    "carMakeProvider": {
+                        "component": "uiComponent"
+                    },
+                    "carListProvider": {
+                        "component": "uiComponent"
+                    }
+                }
+            }
+        }
+    }
+</script>
+<!--<script>
+    requirejs(
+        [
+            'Razoyo_CarProfile/js/action/get-car-list',
+            'underscore',
+            'jquery',
+            'domReady!'
+        ], function (GetCarListAction, _, $) {
+
+            $(document).ready(function () {
+                GetCarListAction('').then(function (response) {
+                    if (response.makes !== undefined && response.makes.length) {
+                        _.each(response.makes, function (make) {
+                            $('#makes').append()
+                        });
+                    }
+                });
+            });
+        });
+</script>-->
