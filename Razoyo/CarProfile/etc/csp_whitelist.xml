@@ -23,5 +23,10 @@
                 <value id="script-razoyo" type="host">https://exam.razoyo.com</value>
             </values>
         </policy>
+        <policy id="img-src">
+            <values>
+                <value id="img-razoyo" type="host">https://assets.adobedtm.com</value>
+            </values>
+        </policy>
     </policies>
 </csp_whitelist>

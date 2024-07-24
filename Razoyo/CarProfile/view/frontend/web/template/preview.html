@@ -1,4 +1,10 @@
 <div data-bind="visible: !_.isEmpty(selectedCar())">
     <img data-bind="attr: {src: selectedCar().image, alt: selectedCar().make}" />
     <h2 data-bind="text: selectedCar().make"></h2>
+    <ul>
+        <li>Model: <strong data-bind="text: selectedCar().model"></strong></li>
+        <li>mpg: <strong data-bind="text: selectedCar().mpg"></strong></li>
+        <li>Seat Capacity: <strong data-bind="text: selectedCar().seats"></strong></li>
+        <li>Price: $<strong data-bind="text: selectedCar().price"></strong></li>
+    </ul>
 </div>
