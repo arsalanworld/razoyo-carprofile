@@ -1,0 +1,56 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+?>
+<?php
+    /** @var \Razoyo\CarProfile\ViewModel\CarProfile $viewModel */
+    $viewModel = $block->getViewModel();
+    $profile = $viewModel->getProfile();
+?>
+<div class="block block-dashboard-info car-profile-info">
+    <div class="block-title">
+        <strong><?= ($profile['make'] ?? '') . ' ' . ($profile['model'] ?? ''); ?></strong>
+    </div>
+    <div data-bind="scope: 'preview'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div class="toolbar-actions">
+        <a class="action primary change-car-action"
+           href="<?= $block->getUrl('car/edit/form')
+           . '?make=' . ($profile['make'] ?? '')
+           . '&id=' . ($profile['id'] ?? '')
+           ?>"
+           data-bind="i18n: 'Change Car'"></a>
+    </div>
+</div>
+
+<script>
+    requirejs([
+        'underscore',
+        'Razoyo_CarProfile/js/model/selected-car'
+    ], function (_, selectedCar) {
+        'use strict';
+
+        let profileData = JSON.parse('<?= json_encode($profile); ?>');
+        if (_.isEmpty(profileData)) {
+            document.location.replace('<?= $block->getUrl("car/edit/form") ?>');
+        }
+
+        selectedCar(profileData);
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "preview": {
+                        "component": "Razoyo_CarProfile/js/view/preview-car",
+                        "template" : "Razoyo_CarProfile/preview"
+                    }
+                }
+            }
+        }
+    }
+</script>

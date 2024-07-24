@@ -1,0 +1,111 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .preview-profile {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+
+        img {
+            width: 300px;
+            height: auto;
+            border-radius: 20%;
+        }
+
+        ul.car-profile-attributes {
+            list-style: none;
+            margin-bottom: 0;
+            li {
+                font-size: 2rem;
+                strong {
+                    color: @theme__color__secondary;
+                }
+            }
+        }
+    }
+
+    .edit-profile {
+        .preview-profile {
+            img {
+                width: 160px;
+            }
+
+            ul.car-profile-attributes {
+                li {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+
+    .car-thumbnail {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-content: center;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 15px;
+
+        img {
+            border: 1px solid #ccc;
+            .lib-css(border-radius, 50%);
+            width: 125px;
+        }
+
+        strong {
+            padding-left: @indent__base;
+        }
+    }
+
+    .dashboard-my-car {
+        a {
+            margin-top: 1rem;
+            padding-left: 25px;
+            display: block;
+        }
+    }
+
+    .placeholder-car {
+        background-image: url("../Razoyo_CarProfile/images/car_thumbnail.jpg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        width: 125px;
+        height: 125px;
+        border: 1px solid #ccc;
+        .lib-css(border-radius, 50%);
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .car-profile-info, .edit-profile {
+        .preview-profile {
+            background: #f7f5f5;
+            padding: (@indent__base - 5);
+            border-radius: (@indent__s + 2);
+        }
+    }
+
+    .change-car-action {
+        margin: (@indent__xl + 5);
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .change-car-action {
+        margin: @indent__xl;
+    }
+}

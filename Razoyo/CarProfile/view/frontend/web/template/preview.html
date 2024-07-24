@@ -1,0 +1,12 @@
+<div class="preview-profile" data-bind="visible: !_.isEmpty(selectedCar())">
+    <img data-bind="attr: {src: selectedCar().image, alt: selectedCar().make}" />
+    <ul class="car-profile-attributes">
+        <li>Make: <strong data-bind="text: selectedCar().make"></strong></li>
+        <li>Model: <strong data-bind="text: selectedCar().model"></strong></li>
+        <li>Model: <strong data-bind="text: selectedCar().year"></strong></li>
+        <li>mpg: <strong data-bind="text: selectedCar().mpg"></strong></li>
+        <li>Seat Capacity: <strong data-bind="text: selectedCar().seats"></strong></li>
+        <li>Price: <strong data-bind="text: '$' + selectedCar().price"></strong></li>
+    </ul>
+    <input type="hidden" name="car_profile" id="car-profile" data-bind="attr: { value: stringify() }">
+</div>
