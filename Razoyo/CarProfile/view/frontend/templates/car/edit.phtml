@@ -32,7 +32,7 @@
         </div>
     </fieldset>
     <fieldset class="fieldset">
-        <div data-bind="scope: 'previewCar'">
+        <div data-bind="scope: 'preview'">
             <!-- ko template: getTemplate() --><!-- /ko -->
         </div>
     </fieldset>
@@ -71,6 +71,10 @@ script;
                     "carprofile": {
                         "component": "Razoyo_CarProfile/js/form/element/car-profile-select",
                         "template" : "Razoyo_CarProfile/ui/form/element/car-select"
+                    },
+                    "preview": {
+                        "component": "Razoyo_CarProfile/js/view/preview-car",
+                        "template" : "Razoyo_CarProfile/preview"
                     }
                 }
             }

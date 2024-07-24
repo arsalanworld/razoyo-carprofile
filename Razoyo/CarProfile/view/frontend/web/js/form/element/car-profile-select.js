@@ -60,7 +60,7 @@ define([
                 console.log('componentSelf.yourToken', componentSelf.yourToken);
                 FindCarByIdAction(value, componentSelf.yourToken).then(
                     function (response) {
-                        selectedCar(response);
+                        selectedCar((response.car !== undefined) ? response.car : []);
                         console.log('selected car:', selectedCar());
                     }
                 );
