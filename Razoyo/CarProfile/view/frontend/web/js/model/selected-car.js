@@ -3,5 +3,5 @@ define([
 ], function (ko) {
     'use strict';
 
-    return ko.observableArray([]);
+    return ko.observable({});
 });

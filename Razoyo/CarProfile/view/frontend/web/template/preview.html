@@ -1,4 +1,4 @@
-<if args="selectedCar().length">
-    <img src="selectedCar().image" alt="selectedCar().make" />
-    <h2 data-bind="selectedCar().make"></h2>
-</if>
+<div data-bind="visible: !_.isEmpty(selectedCar())">
+    <img data-bind="attr: {src: selectedCar().image, alt: selectedCar().make}" />
+    <h2 data-bind="text: selectedCar().make"></h2>
+</div>

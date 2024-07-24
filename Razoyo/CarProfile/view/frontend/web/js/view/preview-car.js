@@ -6,6 +6,10 @@ define([
     "use strict";
 
     return Component.extend({
-        selectedCar: selectedCar
+        defaults: {
+            template : "Razoyo_CarProfile/preview"
+        },
+
+        selectedCar: selectedCar,
     });
 });
