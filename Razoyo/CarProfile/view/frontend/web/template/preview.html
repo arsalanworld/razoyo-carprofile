@@ -5,6 +5,6 @@
         <li>Model: <strong data-bind="text: selectedCar().model"></strong></li>
         <li>mpg: <strong data-bind="text: selectedCar().mpg"></strong></li>
         <li>Seat Capacity: <strong data-bind="text: selectedCar().seats"></strong></li>
-        <li>Price: $<strong data-bind="text: selectedCar().price"></strong></li>
+        <li>Price: <strong data-bind="text: '$' + selectedCar().price"></strong></li>
     </ul>
 </div>
