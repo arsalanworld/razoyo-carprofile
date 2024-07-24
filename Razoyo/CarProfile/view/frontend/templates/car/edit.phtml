@@ -5,7 +5,7 @@
 
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
-<form class="form-address-edit"
+<form class="form-address-edit edit-profile"
       action="<?= $escaper->escapeUrl($block->getUrl('car/edit/editPost')) ?>"
       method="post" id="form-validate"
       enctype="multipart/form-data"
@@ -17,7 +17,7 @@
         <div class="field car required">
             <label class="label" for="car"><span><?= $block->escapeHtml(__('Select Make')) ?></span></label>
             <div class="control">
-                <select id="makes">
+                <select id="makes" name="makes">
                     <option value=""><?= __('Select Make...') ?></option>
                 </select>
             </div>
@@ -58,8 +58,6 @@ $scriptString = <<<script
         "mage/mage"
     ], function($){
         var dataForm = $('#form-validate');
-
-
     });
 script;
 ?>
@@ -70,7 +68,8 @@ script;
                 "components": {
                     "carprofile": {
                         "component": "Razoyo_CarProfile/js/form/element/car-profile-select",
-                        "template" : "Razoyo_CarProfile/ui/form/element/car-select"
+                        "template" : "Razoyo_CarProfile/ui/form/element/car-select",
+                        "selectedId": "<?= $block->getRequest()->getParam('id') ?>"
                     },
                     "preview": {
                         "component": "Razoyo_CarProfile/js/view/preview-car",
@@ -98,14 +97,11 @@ script;
                         _.each(response.makes, function (make) {
                             $('#makes').append('<option value="' + make + '">' + make + '</option>');
                         });
-                        let yourToken = xhr.getResponseHeader('your-token');
-                        console.log('response header:', yourToken);
                     }
                 });
 
                 $("#makes").on("change", function (e) {
                     e.preventDefault();
-
                     if (this.value.trim() !== '') {
                         makeSelectedValue(this.value);
                         $('.car-field').show();

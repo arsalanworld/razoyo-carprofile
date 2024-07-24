@@ -23,19 +23,17 @@ define([
     var componentSelf;
     return Select.extend({
         defaults: {
-            customName: '${ $.parentName }.${ $.index }_input',
+            customName: '${ $.index }_select',
             elementTmpl: 'Magento_Ui/form/element/select',
             caption: 'Select Your Car',
             options: [],
-            yourToken: ''
+            yourToken: '',
+            selectedId: ''
         },
-        //yourToken: ko.observable(''),
 
         initialize: function() {
             this._super();
-            console.log('init before', this.yourToken);
             componentSelf = this;
-            console.log('init after');
             makeSelectedValue.subscribe(function (selectedValue) {
                 GetCarListAction(selectedValue).then(
                     function (response, textStatus, xhr) {
@@ -53,27 +51,20 @@ define([
          * @returns {*}
          */
         onUpdate: function (value) {
-            this._super();
-
             if (typeof value === 'string') {
                 $('[type="submit"]').removeAttr('disabled');
-                console.log('componentSelf.yourToken', componentSelf.yourToken);
                 FindCarByIdAction(value, componentSelf.yourToken).then(
                     function (response) {
                         selectedCar((response.car !== undefined) ? response.car : {});
-                        console.log('selected car:', selectedCar());
                     }
                 );
             } else if (typeof value === 'undefined') {
                 $('[type="submit"]').attr('disabled', 'disabled');
             }
-
-            return this;
         },
 
         _updateOptions: function (response) {
             if (response.cars !== undefined && response.cars.length) {
-                console.log('update cars');
                 this.options([]);
                 _.each(response.cars, function (car) {
                     componentSelf.options.push({
@@ -81,6 +72,13 @@ define([
                         'label': car.make + ' ' + car.model + ' ' + car.year
                     });
                 });
+
+                if (componentSelf.selectedId) {
+                    setTimeout(function () {
+                        componentSelf.onUpdate(componentSelf.selectedId);
+                        componentSelf.selectedId = '';
+                    }, 300);
+                }
             }
         }
     });

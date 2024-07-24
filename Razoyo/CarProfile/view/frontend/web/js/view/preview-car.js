@@ -11,5 +11,13 @@ define([
         },
 
         selectedCar: selectedCar,
+
+        stringify: function () {
+            return JSON.stringify(this.selectedCar());
+        },
+
+        toArray: function (str) {
+            return JSON.parse(str);
+        }
     });
 });

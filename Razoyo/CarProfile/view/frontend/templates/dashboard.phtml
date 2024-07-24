@@ -1,0 +1,37 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+?>
+<?php
+/** @var \Razoyo\CarProfile\ViewModel\CarProfile $viewModel */
+$viewModel = $block->getViewModel();
+$profile = $viewModel->getProfile();
+?>
+<div class="block block-dashboard-info dashboard-my-car">
+    <div class="block-title">
+        <strong><?= __('My Car'); ?></strong>
+    </div>
+    <?php if (!empty($profile)): ?>
+    <div class="car-thumbnail">
+        <img src="<?= $profile['image'] ?? '' ?>" />
+        <strong class="box-title">
+            <span><?= ($profile['make'] ?? '')
+                . ' '
+                . ($profile['model'] ?? '')
+                . ' '
+                . ($profile['year'] ?? '')
+            ?></span>
+        </strong>
+    </div>
+    <div class="toolbar-actions">
+        <a href="<?= $block->getUrl('car') ?>" data-bind="i18n: 'Edit Car'"></a>
+    </div>
+    <?php else: ?>
+        <div class="placeholder-car"></div>
+        <div class="toolbar-actions">
+            <a href="<?= $block->getUrl('car/edit/form') ?>"
+               data-bind="i18n: 'Choose Car'"></a>
+        </div>
+    <?php endif; ?>
+</div>

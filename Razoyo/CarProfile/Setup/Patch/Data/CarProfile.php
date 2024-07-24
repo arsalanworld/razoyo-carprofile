@@ -29,11 +29,11 @@ class CarProfile implements DataPatchInterface
                 'label' => 'car_profile',
                 'input' => 'text',
                 'required' => false,
-                'visible' => true,
+                'visible' => false,
                 'user_defined' => true,
                 'position' => 999,
                 'system' => false,
-                'default' => 'free'
+                'default' => ''
             ]
         );
 
@@ -44,10 +44,7 @@ class CarProfile implements DataPatchInterface
         $attribute->setData('attribute_set_id', $attributeSetId);
         $attribute->setData('attribute_group_id', $attributeGroupId);
 
-        $attribute->setData('used_in_forms', [
-            'adminhtml_customer',
-            'customer_account_create',
-        ]);
+        $attribute->setData('used_in_forms', []);
 
         $this->attributeResource->save($attribute);
     }
